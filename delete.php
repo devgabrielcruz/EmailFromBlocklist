@@ -1,5 +1,4 @@
 <?php
-
 $serv = "localhost";
 $user = "root";
 $pass = "";
@@ -11,8 +10,8 @@ if ($db_connection->connect_error) {
     die("Conexão falhou: " . $db_connection->connect_error);
 }
 
-if (isset($_GET['email'])) {
-    $email = $_GET['email'];
+if (isset($_GET['removeEmail'])) {
+    $email = $_GET['removeEmail'];
 
     $sql_go = "DELETE FROM blacklist_emails WHERE email = '$email'";
 

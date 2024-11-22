@@ -3,9 +3,16 @@ function removeBloqueio() {
 
     // validações
     if (emailPaciente.value == '') {
-        alert('Por favor, digite um endereço de e-mail.');
+        alert('Por favor, digite um endereço de e-mail para verificação!');
+
+    } else if (emailPaciente == null) {
+        alert('Digite um e-mail válido!');
+
+    } else if () {
+        alert('Este e-mail não consta na lista de bloqueio!');
+
     } else {
-        alert(`...`);
+        alert('E-mail não identificado!');
     }
 }
 
