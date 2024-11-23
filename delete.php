@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
         echo "Erro ao deletar registro: " . $db_connection->error;
     }
 } else {
-    echo "ID não fornecido.";
+    echo "ID não identificado.";
 }
 
 $db_connection->close();
