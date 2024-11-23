@@ -8,7 +8,7 @@
     <title>Lista de bloqueio</title>
 </head>
 <body>
-<section class="removeBlacklist">
+<section class="emailSearchForm">
     <h1>E-mails na lista de bloqueio</h1>
     <p>Existem alguns motivos que podem levar um e-mail a ser bloqueado...</p>
  
@@ -44,7 +44,7 @@
   $result = $db_connection->query($sql);
 
   if ($result->num_rows > 0) {
-      // Loop para exibir os dados
+      
       while ($row = $result->fetch_assoc()) {
           echo "<tr>
                   <td>{$row['id']}</td>
@@ -75,6 +75,7 @@
   <a href="#">〉</a>
 </div>
 </footer>
+
 <script>
 function deleteEmail(id) {
     if (confirm("Deseja remover este e-mail da lista de bloqueio?")) {
