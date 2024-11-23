@@ -12,10 +12,10 @@
     <h1>E-mails na lista de bloqueio</h1>
     <p>Existem alguns motivos que podem levar um e-mail a ser bloqueado...</p>
  
-        <form action="delete.php" method="GET" class="removeEmailForm">    
-            <input type="email" name="removeEmail" placeholder="E-mail" required>
-            <button type="submit" class="button">Buscar</button>
-        </form>
+    <form action="" method="GET" class="emailSearchForm">
+    <input type="email" name="searchEmail" placeholder="Buscar endereço de e-mail" required>
+    <button type="submit" class="button">Buscar</button>
+</form>
 </section> 
 
 <section class="searchResults">
@@ -26,68 +26,42 @@
     <th>Data do bloqueio</th>
     <th>Ação</th>
   </tr>
-  <tr>
-    <td>1</td>
-    <td>teste0@email.com</td>
-    <td>25/08/2024 23:55</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>teste1@email.com</td>
-    <td>26/08/2024 10:15</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>teste2@email.com</td>
-    <td>26/08/2024 14:30</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>teste3@email.com</td>
-    <td>26/08/2024 16:45</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>teste4@email.com</td>
-    <td>26/08/2024 18:00</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>6</td>
-    <td>teste5@email.com</td>
-    <td>26/08/2024 20:20</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>7</td>
-    <td>teste6@email.com</td>
-    <td>27/08/2024 09:00</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>8</td>
-    <td>teste7@email.com</td>
-    <td>27/08/2024 11:45</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>9</td>
-    <td>teste8@email.com</td>
-    <td>27/08/2024 15:20</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
-  <tr>
-    <td>10</td>
-    <td>teste9@email.com</td>
-    <td>27/08/2024 19:30</td>
-    <td><span class="material-symbols-outlined">delete</span></td>
-  </tr>
+  <?php
+
+  $serv = "localhost";
+  $user = "root";
+  $pass = "";
+  $db = "blacklistdb";
+
+  $db_connection = new mysqli($serv, $user, $pass, $db);
+
+  if ($db_connection->connect_error) {
+      die("Conexão falhou: " . $db_connection->connect_error);
+  }
+
+  // Consulta para obter os dados
+  $sql = "SELECT id, email, data_criacao FROM blacklist_emails";
+  $result = $db_connection->query($sql);
+
+  if ($result->num_rows > 0) {
+      // Loop para exibir os dados
+      while ($row = $result->fetch_assoc()) {
+          echo "<tr>
+                  <td>{$row['id']}</td>
+                  <td>{$row['email']}</td>
+                  <td>{$row['data_criacao']}</td>
+                  <td><span class='material-symbols-outlined' onclick='deleteEmail({$row['id']})'>delete</span></td>
+                </tr>";
+      }
+  } else {
+      echo "<tr><td colspan='4'>Nenhum registro encontrado</td></tr>";
+  }
+
+  $db_connection->close();
+  ?>
 </table>
 </section>
+
 
 <footer>
 <div class="pagination">
@@ -101,7 +75,20 @@
   <a href="#">〉</a>
 </div>
 </footer>
-    <script src="script.js"></script>
+<script>
+function deleteEmail(id) {
+    if (confirm("Deseja remover este e-mail da lista de bloqueio?")) {
+        fetch(`delete.php?id=${id}`, { method: 'GET' })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                location.reload();
+            })
+            .catch(error => console.error('Erro:', error));
+    }
+}
+</script>
+
 </body>
 
 </html>
