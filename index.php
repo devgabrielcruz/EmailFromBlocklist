@@ -19,7 +19,7 @@
 </section>
 
 <section class="searchResults">
-    <table id="customers">
+    <table id="resultTable">
         <tr>
             <th># ID</th>
             <th>E-mail</th>
@@ -31,7 +31,7 @@
 
         // Paginação
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $limit = 10; // Número de registros por página
+        $limit = 15; // Número de registros por página
         $offset = ($page - 1) * $limit;
 
         // Filtro por e-mail

@@ -32,31 +32,31 @@ section.searchResults {
   margin-top: 20px;
 }
 
-#customers {
+#resultTable {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-#customers td, #customers th {
+#resultTable td, #resultTable th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#customers th {
+#resultTable th {
   text-transform: uppercase;
 }
 
-#customers td:first-child, #customers th:first-child {
+#resultTable td:first-child, #resultTable th:first-child {
   width: 50px; 
   text-align: center;
   font-weight: 700;
 }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-#customers tr:hover {background-color: #ddd;}
+#resultTable tr:nth-child(even){background-color: #f2f2f2;}
+#resultTable tr:hover {background-color: #ddd;}
 
-#customers th {
+#resultTable th {
   padding-top: 12px;
   font-size: 12px;
   font-family: sans-serif;
