@@ -1,25 +1,20 @@
 <?php
-$serv = "localhost";
-$user = "root";
-$pass = "";
-$db = "blacklistdb";
-
-$db_connection = new mysqli($serv, $user, $pass, $db);
-
-if ($db_connection->connect_error) {
-    die("Conexão falhou: " . $db_connection->connect_error);
-}
+include 'connection.php';
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
+    $sql = "DELETE FROM blacklist_emails WHERE id = ?";
+    
+    $stmt = $db_connection->prepare($sql);
+    $stmt->bind_param("i", $id);
 
-    $sql_go = "DELETE FROM blacklist_emails WHERE id = $id";
-
-    if ($db_connection->query($sql_go) === TRUE) {
+    if ($stmt->execute()) {
         echo "Registro deletado com sucesso!";
     } else {
-        echo "Erro ao deletar registro: " . $db_connection->error;
+        echo "Erro ao deletar registro: " . $stmt->error;
     }
+
+    $stmt->close();
 } else {
     echo "ID não identificado.";
 }
